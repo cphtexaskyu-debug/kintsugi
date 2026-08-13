@@ -1,4 +1,4 @@
-# Kintsugi Screen
+# Kintsugi
 
 Trace the real crack on your phone screen with your finger and turn it into a wallpaper
 that celebrates it — kintsugi gold, flowers, lightning, constellations, and more.

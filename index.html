@@ -85,6 +85,7 @@
   <p class="tip">Tracing happens on a white screen so the crack is easy to see — the style is applied after.<br>
   You can switch styles after tracing without redrawing.</p>
   <p class="tip" id="installtip">For perfect alignment, install this app: browser menu &rarr; <b>Add to Home Screen</b>, then open it from there.</p>
+  <p class="tip" id="affiliatetip" style="display:none">Planning to fix the screen eventually? <a id="affiliatelink" href="#" target="_blank" rel="noopener sponsored" style="color:#D9B44A">A good protector for after &rarr;</a></p>
 </div>
 
 <div id="trace" class="screen">
@@ -106,12 +107,19 @@
     <button id="restyle">Style</button>
     <button id="up" title="Nudge lines up">&#9650;</button>
     <button id="downb" title="Nudge lines down">&#9660;</button>
+    <a id="tipjar" href="#" target="_blank" rel="noopener" title="Leave a tip" style="display:none">&#9749;</a>
     <a id="save" download="crack-wallpaper.png">Save</a>
   </div>
 </div>
 
 <script>
 (function () {
+  // monetization links — leave empty to hide the corresponding UI
+  var LINKS = {
+    tip: '',        // e.g. 'https://ko-fi.com/yourname'
+    affiliate: ''   // e.g. 'https://www.amazon.com/s?k=phone+screen+protector&tag=yourtag-20'
+  };
+
   var styleKey = 'lacquer';
   var strokes = [];
   var cur = null;
@@ -1235,6 +1243,17 @@
   document.getElementById('downb').addEventListener('click', function () { nudgeY += 8; render(); });
 
   sizePad();
+
+  // wire monetization links if configured
+  if (LINKS.tip) {
+    var tj = document.getElementById('tipjar');
+    tj.href = LINKS.tip;
+    tj.style.display = '';
+  }
+  if (LINKS.affiliate) {
+    document.getElementById('affiliatelink').href = LINKS.affiliate;
+    document.getElementById('affiliatetip').style.display = '';
+  }
 
   // hide the install tip when already running as an installed app
   if (window.matchMedia('(display-mode: standalone)').matches ||

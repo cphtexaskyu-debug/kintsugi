@@ -1,6 +1,6 @@
 // Kintsugi Screen service worker: network-first for the page (so updates land),
 // cache-first for static assets, full offline once visited.
-var CACHE = 'kintsugi-v2';
+var CACHE = 'kintsugi-v3';
 var ASSETS = [
   '.',
   'index.html',

@@ -40,6 +40,7 @@
   .sw-shuriken { background:radial-gradient(circle at 65% 25%, rgba(196,61,61,.18), transparent 55%), linear-gradient(#191B2E,#0A0B14); } .sw-shuriken::after { background:#C9CDD4; }
   .sw-meteor { background:linear-gradient(160deg, #0B0F1E 60%, #2A1408), linear-gradient(#0B0F1E,#050308); } .sw-meteor::after { background:#FFC87A; box-shadow:0 0 8px #FF8A3A; }
   #start { background:#D9B44A; color:#191412; border:none; border-radius:8px; font-size:17px; font-weight:600; padding:13px 44px; cursor:pointer; font-family:inherit; }
+  #demo { background:none; border:none; color:#A69C89; text-decoration:underline; font-size:13px; cursor:pointer; font-family:inherit; padding:4px; }
   .tip { font-size:12px !important; opacity:.75; }
 
   /* ---- trace ---- */
@@ -80,6 +81,7 @@
     <button class="stylebtn" data-style="meteor"><div class="swatch sw-meteor"></div>Meteor</button>
   </div>
   <button id="start">Start tracing</button>
+  <button id="demo">no crack? see a demo</button>
   <p class="tip">Tracing happens on a white screen so the crack is easy to see — the style is applied after.<br>
   You can switch styles after tracing without redrawing.</p>
   <p class="tip" id="installtip">For perfect alignment, install this app: browser menu &rarr; <b>Add to Home Screen</b>, then open it from there.</p>
@@ -1155,6 +1157,25 @@
   function endStroke() { cur = null; redraw(); }
   pad.addEventListener('pointerup', endStroke);
   pad.addEventListener('pointercancel', endStroke);
+
+  // built-in demo crack (viewport fractions) for visitors without a cracked screen
+  var DEMO = [
+    [[.42, .40], [.37, .32], [.36, .24], [.40, .16], [.37, .08]],
+    [[.42, .40], [.52, .35], [.62, .33], [.74, .30], [.88, .25]],
+    [[.42, .40], [.44, .52], [.47, .62], [.41, .74], [.45, .88]],
+    [[.42, .40], [.33, .46], [.24, .49], [.14, .54]],
+    [[.42, .40], [.51, .49], [.56, .58], [.63, .66]]
+  ];
+  document.getElementById('demo').addEventListener('click', function () {
+    strokes = DEMO.map(function (s) {
+      return s.map(function (p) {
+        return { x: p[0] * window.innerWidth, y: p[1] * window.innerHeight };
+      });
+    });
+    nudgeY = 0;
+    render();
+    show(result);
+  });
 
   document.getElementById('undo').addEventListener('click', function () { strokes.pop(); redraw(); });
   document.getElementById('clear').addEventListener('click', function () { strokes = []; redraw(); });
